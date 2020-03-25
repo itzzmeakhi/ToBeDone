@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 import { Task } from '../components/todo-list/task.model';
 
@@ -8,29 +8,31 @@ import { Task } from '../components/todo-list/task.model';
 @Injectable({ 'providedIn' : 'root' })
 export class TasksService {
 
-    user = new BehaviorSubject<any>(null);
-    tasks = new BehaviorSubject<Task[]>(null);
-
+    //user = new BehaviorSubject<any>(null);
+    //tasks = new BehaviorSubject<Task[]>(null);
 
 
     // Triggers when user accessed the page
 
     onAccessThePage() {
+        console.log("SERVICE");
         if(localStorage.getItem('ToBeDone_User')) {
             const userDetails = JSON.parse(localStorage.getItem('ToBeDone_User'));
             if(userDetails.expirationTimer > new Date().getTime()) {
                 const tasksList : Task[]= JSON.parse(localStorage.getItem('ToBeDone_Tasks'));
-                this.user.next(userDetails);
-                this.tasks.next(tasksList);
+                return tasksList;
+                //this.user.next(userDetails);
+                //this.tasks.next(tasksList);
             } else {
                 const user = {
                     'name' : 'user',
                     'expirationTimer' : new Date().getTime() + 86400000
                 }
                 localStorage.setItem('ToBeDone_User', JSON.stringify(user));
-                const tasksList : Task[] = null;
-                this.user.next(user);
-                this.tasks.next(tasksList);
+                const tasksList : Task[] = [];
+                return tasksList;
+                //this.user.next(user);
+                //this.tasks.next(tasksList);
             }
         } else {
             const user = {
@@ -38,9 +40,10 @@ export class TasksService {
                 'expirationTimer' : new Date().getTime() + 86400000
             }
             localStorage.setItem('ToBeDone_User', JSON.stringify(user));
-            const tasksList : Task[] = null;
-            this.user.next(user);
-            this.tasks.next(tasksList);
+            const tasksList : Task[] = [];
+            return tasksList;
+            //this.user.next(user);
+            //this.tasks.next(tasksList)
         }
     }
 
@@ -48,14 +51,14 @@ export class TasksService {
 
     addNewTask(updatedTasks : Task[]) {
         localStorage.setItem('ToBeDone_Tasks', JSON.stringify(updatedTasks));
-        this.tasks.next(updatedTasks);
+        //this.tasks.next(updatedTasks);
     }
 
     // Triggers when a task is completed
 
     updateTasks(updatedTasks : Task[]) {
-        console.log(updatedTasks);
+        //console.log(updatedTasks);
         localStorage.setItem('ToBeDone_Tasks', JSON.stringify(updatedTasks));
-        this.tasks.next(updatedTasks);
+        //this.tasks.next(updatedTasks);
     }
 }

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
+import * as TaskActions from './store/tasks.actions';
 import { TasksService } from '../tasks.service';
 import { Task } from './task.model';
+import { AppState } from './store/tasks.reducer';
 
 @Component({
   selector: 'app-todo-list',
@@ -16,14 +19,19 @@ export class TodoListComponent implements OnInit {
   tasksSubscription : Subscription;
   updatedTasks : Task[];
 
-  constructor(private tasksService : TasksService) { }
+  constructor(private tasksService : TasksService,
+              private store : Store<AppState>) { }
 
   ngOnInit() {
-    this.tasksSubscription = this.tasksService.tasks
+    this.tasksSubscription = this.store.select('tasksReducer')
       .subscribe(tasksData => {
-        this.tasks = tasksData;
-        // console.log(this.tasks);
-      })
+        this.tasks = tasksData.tasks;
+      });
+    // this.tasksSubscription = this.tasksService.tasks
+    //   .subscribe(tasksData => {
+    //     this.tasks = tasksData;
+    //     // console.log(this.tasks);
+    //   })
   }
 
   onCompleteTask(task : Task, index : number) {
@@ -34,7 +42,8 @@ export class TodoListComponent implements OnInit {
     );
     this.updatedTasks = [...this.tasks];
     this.updatedTasks[index] = updatedTask;
-    this.tasksService.updateTasks(this.updatedTasks);
+    // this.tasksService.updateTasks(this.updatedTasks);
+    this.store.dispatch(new TaskActions.UpdateTask(this.updatedTasks));
   }
 
 }
