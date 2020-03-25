@@ -1,0 +1,43 @@
+<div class="card m-3" style = "width: 18em; height: 12rem;">
+
+    <div class="card-body">
+
+        <h5 class="card-title"> Add New Task </h5>
+
+        <hr>
+
+        <form [formGroup] = "addTasksForm" (ngSubmit) = "onFormSubmit()">
+
+            <div class = "form-group row">
+
+                <label class = "col-md-3 col-form-label" for = "newTask"> Task </label>
+
+                <div class = "col-md-8">
+
+                    <input
+                        type = "text"
+                        class = "form-control form-control-sm"
+                        name = "newTask"
+                        formControlName = "newTask"
+                        id = "newTask"
+                        autocomplete = "off"
+                    > 
+                    
+                </div>
+
+            </div>
+
+            <button
+                type = "submit"
+                class = "btn btn-sm btn-primary">
+                Add
+            </button>
+
+             
+
+        </form>
+
+    </div>
+
+</div>
+

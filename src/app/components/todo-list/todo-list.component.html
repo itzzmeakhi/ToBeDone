@@ -1,0 +1,58 @@
+<div class = "row p-3 ml-3">
+
+    <div class = "offset-md-4 col-md-4">
+
+        <p class = "display-4"> Tasks to be Done </p>
+
+    </div>
+
+</div>
+
+<hr class = "mt-0 mb-0">
+
+<div class = "row p-3 ml-3">
+
+    <span
+        *ngFor = "let task of tasks; let i = index">
+
+        <app-todo-item
+            *ngIf = "task.isCompleted === false"
+            [task] = "task"
+            [index] = "i"
+            (completeTask) = "onCompleteTask(task, i)">
+        </app-todo-item>
+
+    </span>
+
+    <app-new-item></app-new-item>
+    
+</div>
+
+<hr class = "mt-0 mb-0">
+
+<div class = "row p-3 ml-3">
+
+    <div class = "offset-md-4 col-md-4">
+
+        <p class = "display-4"> Tasks completed </p>
+
+    </div>
+
+</div>
+
+<hr class = "mt-0 mb-0">
+
+<div class = "row p-3 ml-3">
+
+    <span
+        *ngFor = "let task of tasks; let i = index">
+
+        <app-todo-item
+            *ngIf = "task.isCompleted === true"
+            [task] = "task"
+            [index] = "i">
+        </app-todo-item>
+
+    </span>
+    
+</div>

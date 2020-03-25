@@ -1,0 +1,33 @@
+<div class="card m-3" style = "width: 18em; height: 12rem;">
+
+    <div class="card-body">
+
+        <h5 class="card-title"> {{ task.taskName }} </h5>
+
+        <hr>
+
+        <p>
+            Created on : 
+            <span class = "text-muted" style = "font-size: 15px;">
+                {{ taskCreatedOn }}
+            </span>
+
+        </p>
+
+        <button
+            type = "button"
+            class = "btn btn-sm btn-success"
+            *ngIf = "!task.isCompleted"
+            (click) = "onTaskComplete()">
+            Mark as Completed
+        </button>
+
+        <div
+            *ngIf = "task.isCompleted"
+            class = "alert alert-success">
+            Done
+        </div>
+
+    </div>
+
+</div>
