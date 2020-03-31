@@ -1,0 +1,16 @@
+.todo-card {
+    height: 12rem;
+    width: 18rem;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .todo-card {
+        height: 14rem;
+    } 
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .todo-card {
+        height: 14rem;
+    }    
+}
